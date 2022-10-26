@@ -136,5 +136,8 @@ func buildJQLQueryFromQuals(equalQuals plugin.KeyColumnQualMap, tableColumns []*
 }
 
 func getIssueJQLKey(columnName string) string {
+	if strings.Contains(columnName, "epic_key") {
+		return "Epic Link"
+	}
 	return strings.ToLower(strings.Split(columnName, "_")[0])
 }

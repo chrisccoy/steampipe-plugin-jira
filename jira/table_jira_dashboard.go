@@ -117,7 +117,7 @@ func listDashboards(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateD
 
 	for {
 		apiEndpoint := fmt.Sprintf(
-			"/rest/api/3/dashboard?startAt=%d&maxResults=%d",
+			"/rest/api/2/dashboard?startAt=%d&maxResults=%d",
 			last,
 			maxResults,
 		)
@@ -168,7 +168,7 @@ func getDashboard(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateDat
 		plugin.Logger(ctx).Error("jira_dashboard.getDashboard", "connection_error", err)
 		return nil, err
 	}
-	apiEndpoint := fmt.Sprintf("/rest/api/3/dashboard/%s", dashboardId)
+	apiEndpoint := fmt.Sprintf("/rest/api/2/dashboard/%s", dashboardId)
 	req, err := client.NewRequest("GET", apiEndpoint, nil)
 	if err != nil {
 		plugin.Logger(ctx).Error("jira_dashboard.getDashboard", "get_request_error", err)

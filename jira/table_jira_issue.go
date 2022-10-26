@@ -274,6 +274,7 @@ func listIssues(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 				"epic":   getFieldKey(ctx, d, issue.Names, "Epic Link"),
 				"sprint": getFieldKey(ctx, d, issue.Names, "Sprint"),
 			}
+			plugin.Logger(ctx).Debug("issue info", issue)
 			d.StreamListItem(ctx, IssueInfo{issue, keys})
 			// Context may get cancelled due to manual cancellation or if the limit has been reached
 			if d.QueryStatus.RowsRemaining(ctx) == 0 {
@@ -360,10 +361,10 @@ func extractSprintIds(ctx context.Context, d *transform.TransformData) (interfac
 		return nil, nil
 	}
 	var sprintIds []interface{}
-	for _, item := range d.Value.([]interface{}) {
+	/*for _, item := range d.Value.([]interface{}) {
 		sprint := item.(map[string]interface{})
 		sprintIds = append(sprintIds, sprint["id"])
-	}
+	}*/
 
 	return sprintIds, nil
 }
@@ -372,10 +373,11 @@ func extractSprintNames(ctx context.Context, d *transform.TransformData) (interf
 		return nil, nil
 	}
 	var sprintNames []interface{}
-	for _, item := range d.Value.([]interface{}) {
-		sprint := item.(map[string]interface{})
-		sprintNames = append(sprintNames, sprint["name"])
-	}
+	/*
+		for _, item := range d.Value.([]interface{}) {
+			sprint := item.(map[string]interface{})
+			sprintNames = append(sprintNames, sprint["name"])
+		}*/
 
 	return sprintNames, nil
 }
